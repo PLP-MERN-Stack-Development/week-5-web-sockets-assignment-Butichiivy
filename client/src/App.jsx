@@ -1,154 +1,125 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import io from "socket.io-client";
-import "./App.css";
 
-const socket = io("http://localhost:3000");
+const socket = io("https://your-backend-url.onrender.com"); // replace with your Render server URL
 
 function App() {
-  const [username, setUsername] = useState("");
-  const [tempUsername, setTempUsername] = useState("");
-  const [role, setRole] = useState("patient");
+  const [name, setName] = useState("");
+  const [doctor, setDoctor] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const [users, setUsers] = useState([]);
-  const [selectedDoctor, setSelectedDoctor] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
   const [typingStatus, setTypingStatus] = useState("");
-  const messagesEndRef = useRef(null);
+
+  const doctors = [
+    { name: "Dr. Achieng", id: "achieng" },
+    { name: "Dr. Kamau", id: "kamau" },
+    { name: "Dr. Ouma", id: "ouma" },
+  ];
 
   useEffect(() => {
-    socket.on("chat", (payload) => {
-      setMessages((prev) => [...prev, payload]);
-    });
-
-    socket.on("users", (onlineUsers) => {
-      setUsers(onlineUsers);
-    });
-
-    socket.on("consultation_request", (req) => {
-      alert(`📩 Consultation request from ${req.from}`);
+    socket.on("message", (data) => {
+      setMessages((prev) => [...prev, data]);
     });
 
     socket.on("typing", (data) => {
-      if (data.username !== username) {
-        setTypingStatus(`${data.username} is typing...`);
-        setTimeout(() => setTypingStatus(""), 1500);
-      }
+      setTypingStatus(data);
+      setTimeout(() => setTypingStatus(""), 2000);
     });
 
     return () => {
-      socket.off("chat");
-      socket.off("users");
-      socket.off("consultation_request");
+      socket.off("message");
       socket.off("typing");
     };
-  }, [username]);
+  }, []);
 
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (name.trim().length < 3 || doctor === "") return;
 
-  const handleLogin = () => {
-    if (tempUsername.trim()) {
-      setUsername(tempUsername);
-      socket.emit("join", { username: tempUsername, role });
-    }
+    setIsLoggedIn(true);
+    socket.emit("login", { name, doctor });
   };
 
   const sendMessage = () => {
-    if (!message.trim()) return;
-    socket.emit("chat", { username, message });
+    if (message.trim() === "") return;
+    socket.emit("message", { name, doctor, text: message });
     setMessage("");
-    setIsTyping(false);
-  };
+  }
 
-  const handleTyping = (e) => {
-    setMessage(e.target.value);
-    if (!isTyping) {
-      setIsTyping(true);
-      socket.emit("typing", { username });
-    }
-  };
-
-  const requestHelp = () => {
-    if (!selectedDoctor) return alert("Please select a doctor first.");
-    socket.emit("consultation_request", {
-      from: username,
-      to: selectedDoctor,
-      message: `Patient ${username} needs assistance.`,
-    });
-  };
-
-  const doctorsOnline = users.filter(
-    (u) => u.role === "doctor" && u.username !== username
-  );
+  const handleTyping = () => {
+    socket.emit("typing", `${name} is typing...`);
+  }
 
   return (
-    <div className="app-container">
-      {!username ? (
-        <div className="login">
-          <h2>Login to Chronicare</h2>
-          <input
-            placeholder="Enter your name"
-            value={tempUsername}
-            onChange={(e) => setTempUsername(e.target.value)}
-          />
-          <select value={role} onChange={(e) => setRole(e.target.value)}>
-            <option value="patient">Patient</option>
-            <option value="doctor">Doctor</option>
-          </select>
-          <button onClick={handleLogin}>Join</button>
-        </div>
-      ) : (
-        <div className="chatroom">
-          <header>
-            <h1>Chronicare Live Consult</h1>
-            <p>
-              Logged in as: <strong>{username}</strong> ({role})
-            </p>
-          </header>
+    <div className="min-h-screen bg-gradient-to-r from-purple-900 via-indigo-900 to-purple-900 text-white flex items-center justify-center p-4">
+      <div className="w-full max-w-xl bg-black bg-opacity-60 p-6 rounded-xl shadow-lg">
+        {!isLoggedIn ? (
+          <form onSubmit={handleLogin}>
+            <h2 className="text-3xl font-bold text-center mb-6">Welcome to Chronicare</h2>
 
-          {role === "patient" && (
-            <section className="doctor-help">
-              <h3>Available Doctors</h3>
-              <select
-                onChange={(e) => setSelectedDoctor(e.target.value)}
-                defaultValue=""
-              >
-                <option value="" disabled>
-                  Select a doctor
-                </option>
-                {doctorsOnline.map((doc) => (
-                  <option key={doc.socketId} value={doc.username}>
-                    {doc.username}
-                  </option>
-                ))}
-              </select>
-              <button onClick={requestHelp}>Request Medical Help</button>
-            </section>
-          )}
+            <input
+              type="text"
+              placeholder="Enter your full name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full p-2 mb-4 rounded text-black"
+              required
+              minLength={3}
+            />
 
-          <div className="chat-box">
-            <div className="messages">
+            <select
+              value={doctor}
+              onChange={(e) => setDoctor(e.target.value)}
+              className="w-full p-2 mb-4 rounded text-black"
+              required
+            >
+              <option value="">-- Select your doctor --</option>
+              {doctors.map((doc) => (
+                <option key={doc.id} value={doc.name}>{doc.name}</option>
+              ))}
+            </select>
+
+            <button
+              type="submit"
+              className="w-full bg-purple-600 hover:bg-purple-700 p-2 rounded"
+              disabled={name.trim().length < 3 || doctor === ""}
+            >
+              Join Chat
+            </button>
+          </form>
+        ) : (
+          <div>
+            <h2 className="text-2xl font-semibold mb-2">Chatting as {name} with {doctor}</h2>
+
+            <div className="h-64 overflow-y-auto bg-white bg-opacity-10 p-3 rounded mb-4">
               {messages.map((msg, index) => (
-                <div key={index}>
-                  <strong>{msg.username}:</strong> {msg.message}
+                <div key={index} className="mb-2">
+                  <span className="font-semibold">{msg.name}:</span> {msg.text}
                 </div>
               ))}
-              <div ref={messagesEndRef}></div>
-              {typingStatus && <p className="typing">{typingStatus}</p>}
+              {typingStatus && <div className="italic text-sm text-gray-300">{typingStatus}</div>}
             </div>
-            <div className="input">
+
+            <div className="flex space-x-2">
               <input
-                placeholder="Type your message"
+                type="text"
                 value={message}
-                onChange={handleTyping}
+                onChange={(e) => setMessage(e.target.value)}
+                onKeyDown={handleTyping}
+                className="flex-1 p-2 rounded text-black"
+                placeholder="Type your message..."
               />
-              <button onClick={sendMessage}>Send</button>
+              <button
+                onClick={sendMessage}
+                className="bg-purple-600 hover:bg-purple-700 p-2 rounded"
+              >
+                Send
+              </button>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

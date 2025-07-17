@@ -1,58 +1,42 @@
+// server/server.js
+
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
 
 const app = express();
+app.use(cors());
+
 const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: "*", // for safety in production, replace with frontend URL
     methods: ["GET", "POST"]
   }
-});
+})
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-
-// ✅ Port setup for Render
-const PORT = process.env.PORT || 10000;
-
-// ✅ Base route
-app.get("/", (req, res) => {
-  res.send("Chronicare WebSocket Server Running");
-});
-
-// ✅ Socket.io events
 io.on("connection", (socket) => {
-  console.log("User connected:", socket.id);
+  console.log("✅ A user connected");
 
-  // Broadcast when a user joins
-  socket.on("join", ({ name, doctor }) => {
-    console.log(`${name} joined and selected doctor ${doctor}`);
-    socket.broadcast.emit("userJoined", { name, doctor });
+  socket.on("login", ({ name, doctor }) => {
+    console.log(`👤 ${name} joined to chat with ${doctor}`);
   });
 
-  // Broadcast messages to all users
-  socket.on("sendMessage", ({ name, message, doctor }) => {
-    io.emit("receiveMessage", { name, message, doctor });
+  socket.on("message", (data) => {
+    console.log(`💬 ${data.name}: ${data.text}`);
+    io.emit("message", data);
   });
 
-  // Typing indicator
-  socket.on("typing", ({ name }) => {
-    socket.broadcast.emit("typing", { name });
-  });
+  socket.on("typing", (status) => {
+    socket.broadcast.emit("typing", status);
+  })
 
-  // When a user disconnects
   socket.on("disconnect", () => {
-    console.log("User disconnected:", socket.id);
-    socket.broadcast.emit("userLeft");
+    console.log("❌ A user disconnected");
   });
 });
 
-// ✅ Start server
-server.listen(PORT, () => {
-  console.log(`✅ Server running on port ${PORT}`);
-});
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
