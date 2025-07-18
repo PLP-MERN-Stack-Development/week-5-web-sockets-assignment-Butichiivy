@@ -1,114 +1,108 @@
-# 🩺 Chronicare Real-Time Chat App
+# Chronicare Real-Time Chat App 🩺💬
 
-A real-time doctor-patient communication platform built with **React**, **Node.js**, **Express**, **Socket.io**, and **plain CSS**. This app allows patients to select a doctor and chat privately in real time, with typing indicators, login/logout functionality, and beautiful Chronicare styling.
+This is a real-time chat application built with **Socket.io**, **Node.js**, and **React** as part of the PLP MERN Stack Week 5 assignment. It allows doctors and patients to communicate in real time within private chat rooms.
 
 ---
 
-## 🔧 Features
+## 🚀 Features
 
-- ✅ Patient & Doctor login
-- ✅ Doctor selection dropdown
-- ✅ Private chat rooms (one-to-one)
-- ✅ Real-time messaging via Socket.io
-- ✅ Typing indicators ("Someone is typing...")
-- ✅ Logout button for both user types
-- ✅ Fully styled using plain CSS (no Tailwind or Bootstrap)
-- ✅ Designed with Chronicare theme colors
-- ✅ Responsive and clean layout
+- 👨‍⚕️ Doctor/Patient login with role-based flow
+- 🧑‍⚕️ Patients can select a doctor to chat with
+- 📄 Doctors have their own specific chat rooms
+- 🗨️ Real-time private messaging with Socket.io
+- ✍️ Typing indicators
+- 🔒 Logout functionality
+- 🎨 Clean and modern UI using plain CSS
+- 🔃 Messages are seen live by both parties across different devices or windows
 
 ---
 
 ## 📷 Screenshots
 
-### 1. Home Page
-![Home Page](./assets/home-pg-1.png)
+| Home Page | Doctor Login | Patient Login |
+|-----------|---------------|----------------|
+| ![Home](./assets/home-pg-1.png) | ![Doctor Login](./assets/doctorlogin.png) | ![Patient Login](./assets/patient-login.png) |
 
-### 2. Doctor Login
-![Doctor Login](./assets/doctorlogin.png)
-
-### 3. Patient Login
-![Patient Login](./assets/patient-login.png)
-
-### 4. Chat 1 - Room Entry
-![Chat Room](./assets/chat1.png)
-
-### 5. Chat 2 - Patient View
-![Chat Patient](./assets/chat2-patient.png)
-
-### 6. Chat 3 - Doctor View
-![Chat Doctor](./assets/chat3-doctor.png)
+| Chat Start | Chat as Patient | Chat as Doctor |
+|------------|------------------|----------------|
+| ![Chat 1](./assets/chat1.png) | ![Chat 2 - Patient](./assets/chat2-patient.png) | ![Chat 3 - Doctor](./assets/chat3-doctor.png) |
 
 ---
 
-## 🚀 Getting Started
+## 🛠️ Installation & Running Locally
 
-### 1. Clone the Repo
-```bash
-git clone https://github.com/PLP-MERN-Stack-Development/week-5-web-sockets-assignment-Butichiivy.git
-cd week-5-web-sockets-assignment-Butichiivy
-2. Install Server Dependencies
-bash
-Copy
-Edit
+1. **Clone the repository**
+   ```
+   git clone https://github.com/PLP-MERN-Stack-Development/week-5-web-sockets-assignment-Butichiivy.git
+   cd week-5-web-sockets-assignment-Butichiivy
+
+2. **Install dependencies**
+
+For the server:
 cd server
 npm install
-3. Start the Server
-bash
-Copy
-Edit
-node index.js
-4. Install Client Dependencies
-Open a new terminal:
 
-bash
-Copy
-Edit
+For the client:
 cd client
 npm install
-5. Start the Frontend (Vite)
-bash
-Copy
-Edit
+
+
+3. **Start the application**
+
+In server/:
+npm start
+
+
+In client/:
 npm run dev
-🛠 Tech Stack
-React
 
-Vite
 
-Node.js
+**Folder Structure**
 
-Express
+week-5-web-sockets-assignment-Butichiivy/
 
-Socket.io
-
-Plain CSS
-
-📁 Project Structure
-pgsql
-Copy
-Edit
-├── client/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Home.jsx
-│   │   │   ├── DoctorLogin.jsx
-│   │   │   ├── PatientLogin.jsx
-│   │   │   ├── ChatRoom.jsx
-│   │   │   └── DoctorSelect.jsx
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   └── App.css
 │
-├── server/
+├── client/          # React frontend (Chat interface)
+│   └── src/
+│       └── components/
+│           ├── Login.jsx
+│           ├── ChatRoom.jsx
+│           └── ...etc
+│
+├── server/          # Node.js + Express backend with Socket.io
 │   └── index.js
 │
-├── assets/
+├── assets/          # Screenshots for documentation
 │   ├── home-pg-1.png
 │   ├── doctorlogin.png
 │   ├── patient-login.png
 │   ├── chat1.png
 │   ├── chat2-patient.png
 │   └── chat3-doctor.png
-✍️ Author
-Butichi Ivy
-Power Learn Project – Week 5 WebSocket Assignment
+│
+└── README.md        # This file 📄
+
+
+✅ Assignment Requirements Fulfilled
+ Real-time messaging using WebSockets ✅
+
+ Multiple roles (Doctor/Patient) ✅
+
+ Private chat rooms per doctor ✅
+
+ Typing indicator ✅
+
+ Clean user interface ✅
+
+ Screenshot evidence in README ✅
+
+📚 Technologies Used
+Frontend: React, CSS
+
+Backend: Node.js, Express, Socket.io
+
+Other tools: VS Code, Git, GitHub
+
+ Author
+Ivy Butichi
+PLP Web Development Track – MERN Stack
