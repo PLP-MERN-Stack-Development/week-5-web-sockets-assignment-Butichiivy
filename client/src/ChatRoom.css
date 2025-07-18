@@ -1,45 +1,109 @@
-.chatroom {
-  background-color: hwb(240 48% 51% / 0.267);
-  border-radius: 12px;
-  padding: 20px;
-  max-width: 800px;
-  margin: auto;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+/* Container */
+.chat-container {
+  max-width: 700px;
+  margin: 40px auto;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.chat-section {
-  margin-top: 20px;
+/* Header */
+.chat-container header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.chat-container header h2 {
+  color: #0a726d;
+}
+
+.chat-container header button {
+  background: #cc0000;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Messages */
+.messages {
+  height: 400px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+  border: 1px solid #eee;
+  padding: 0.75rem;
+  background: #f2f8f7;
   display: flex;
   flex-direction: column;
-  height: 300px;
+  gap: 0.5rem;
 }
 
-.messages {
-  flex: 1;
-  overflow-y: auto;
+/* Individual Message Styling */
+.message {
+  padding: 10px 15px;
+  border-radius: 20px;
+  max-width: 75%;
+  word-wrap: break-word;
+  font-size: 0.95rem;
+  color: #333;
+  background: #e1e1e1;
+}
+
+/* Sender Styles */
+.message.self {
+  background-color: #c3a3ff;
+  align-self: flex-end;
+  text-align: right;
+}
+
+.message.doctor {
+  background-color: #edf6ff;
+  align-self: flex-start;
+}
+
+.message.patient {
+  background-color: #d1f7ec;
+  align-self: flex-start;
+}
+
+/* Typing Indicator */
+.typing {
+  height: 20px;
+  font-style: italic;
+  color: #555;
   margin-bottom: 10px;
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 5px;
 }
 
-.input {
+/* Input Area */
+.input-area {
   display: flex;
-  gap: 10px;
+  border-top: 1px solid #ccc;
+  padding-top: 0.5rem;
 }
 
-.input input {
+.input-area input {
   flex: 1;
-  padding: 10px;
-  border-radius: 6px;
+  padding: 0.6rem;
+  font-size: 1rem;
   border: 1px solid #ccc;
+  border-radius: 6px 0 0 6px;
 }
 
-button {
-  padding: 10px 16px;
-  border: none;
-  background-color: #3887cc73;
+.input-area button {
+  padding: 0.6rem 1rem;
+  background-color: #0a726d;
   color: white;
-  border-radius: 6px;
+  border: none;
+  border-radius: 0 6px 6px 0;
   cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.input-area button:hover {
+  background-color: #0d8c85;
 }

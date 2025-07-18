@@ -1,0 +1,49 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  text-align: center;
+  padding: 50px;
+}
+
+.container {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+input, select, button {
+  padding: 10px;
+  margin: 10px 0;
+  width: 80%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.chat {
+  max-width: 600px;
+  margin: auto;
+}
+
+#messages {
+  border: 1px solid #ddd;
+  height: 300px;
+  overflow-y: scroll;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 8px;
+  text-align: left;
+}

@@ -1,78 +1,114 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=19951946&assignment_repo_type=AssignmentRepo)
-# Real-Time Chat Application with Socket.io
+# 🩺 Chronicare Real-Time Chat App
 
-This assignment focuses on building a real-time chat application using Socket.io, implementing bidirectional communication between clients and server.
+A real-time doctor-patient communication platform built with **React**, **Node.js**, **Express**, **Socket.io**, and **plain CSS**. This app allows patients to select a doctor and chat privately in real time, with typing indicators, login/logout functionality, and beautiful Chronicare styling.
 
-## Assignment Overview
+---
 
-You will build a chat application with the following features:
-1. Real-time messaging using Socket.io
-2. User authentication and presence
-3. Multiple chat rooms or private messaging
-4. Real-time notifications
-5. Advanced features like typing indicators and read receipts
+## 🔧 Features
 
-## Project Structure
+- ✅ Patient & Doctor login
+- ✅ Doctor selection dropdown
+- ✅ Private chat rooms (one-to-one)
+- ✅ Real-time messaging via Socket.io
+- ✅ Typing indicators ("Someone is typing...")
+- ✅ Logout button for both user types
+- ✅ Fully styled using plain CSS (no Tailwind or Bootstrap)
+- ✅ Designed with Chronicare theme colors
+- ✅ Responsive and clean layout
 
-```
-socketio-chat/
-├── client/                 # React front-end
-│   ├── public/             # Static files
-│   ├── src/                # React source code
-│   │   ├── components/     # UI components
-│   │   ├── context/        # React context providers
-│   │   ├── hooks/          # Custom React hooks
-│   │   ├── pages/          # Page components
-│   │   ├── socket/         # Socket.io client setup
-│   │   └── App.jsx         # Main application component
-│   └── package.json        # Client dependencies
-├── server/                 # Node.js back-end
-│   ├── config/             # Configuration files
-│   ├── controllers/        # Socket event handlers
-│   ├── models/             # Data models
-│   ├── socket/             # Socket.io server setup
-│   ├── utils/              # Utility functions
-│   ├── server.js           # Main server file
-│   └── package.json        # Server dependencies
-└── README.md               # Project documentation
-```
+---
 
-## Getting Started
+## 📷 Screenshots
 
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Follow the setup instructions in the `Week5-Assignment.md` file
-4. Complete the tasks outlined in the assignment
+### 1. Home Page
+![Home Page](./assets/home-pg-1.png)
 
-## Files Included
+### 2. Doctor Login
+![Doctor Login](./assets/doctorlogin.png)
 
-- `Week5-Assignment.md`: Detailed assignment instructions
-- Starter code for both client and server:
-  - Basic project structure
-  - Socket.io configuration templates
-  - Sample components for the chat interface
+### 3. Patient Login
+![Patient Login](./assets/patient-login.png)
 
-## Requirements
+### 4. Chat 1 - Room Entry
+![Chat Room](./assets/chat1.png)
 
-- Node.js (v18 or higher)
-- npm or yarn
-- Modern web browser
-- Basic understanding of React and Express
+### 5. Chat 2 - Patient View
+![Chat Patient](./assets/chat2-patient.png)
 
-## Submission
+### 6. Chat 3 - Doctor View
+![Chat Doctor](./assets/chat3-doctor.png)
 
-Your work will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
+---
 
-1. Complete both the client and server portions of the application
-2. Implement the core chat functionality
-3. Add at least 3 advanced features
-4. Document your setup process and features in the README.md
-5. Include screenshots or GIFs of your working application
-6. Optional: Deploy your application and add the URLs to your README.md
+## 🚀 Getting Started
 
-## Resources
+### 1. Clone the Repo
+```bash
+git clone https://github.com/PLP-MERN-Stack-Development/week-5-web-sockets-assignment-Butichiivy.git
+cd week-5-web-sockets-assignment-Butichiivy
+2. Install Server Dependencies
+bash
+Copy
+Edit
+cd server
+npm install
+3. Start the Server
+bash
+Copy
+Edit
+node index.js
+4. Install Client Dependencies
+Open a new terminal:
 
-- [Socket.io Documentation](https://socket.io/docs/v4/)
-- [React Documentation](https://react.dev/)
-- [Express.js Documentation](https://expressjs.com/)
-- [Building a Chat Application with Socket.io](https://socket.io/get-started/chat) 
+bash
+Copy
+Edit
+cd client
+npm install
+5. Start the Frontend (Vite)
+bash
+Copy
+Edit
+npm run dev
+🛠 Tech Stack
+React
+
+Vite
+
+Node.js
+
+Express
+
+Socket.io
+
+Plain CSS
+
+📁 Project Structure
+pgsql
+Copy
+Edit
+├── client/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Home.jsx
+│   │   │   ├── DoctorLogin.jsx
+│   │   │   ├── PatientLogin.jsx
+│   │   │   ├── ChatRoom.jsx
+│   │   │   └── DoctorSelect.jsx
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   └── App.css
+│
+├── server/
+│   └── index.js
+│
+├── assets/
+│   ├── home-pg-1.png
+│   ├── doctorlogin.png
+│   ├── patient-login.png
+│   ├── chat1.png
+│   ├── chat2-patient.png
+│   └── chat3-doctor.png
+✍️ Author
+Butichi Ivy
+Power Learn Project – Week 5 WebSocket Assignment
